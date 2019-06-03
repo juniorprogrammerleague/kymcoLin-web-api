@@ -1,0 +1,4 @@
+﻿Scaffold-DbContext "Server=tcp:kymcolin.database.windows.net,1433;Initial Catalog=kymcolin;Persist Security Info=False;User ID=linyuan;Password=Lin0928113951;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DBModels
+
+// update model from db (從資料庫更新模型)
+Scaffold-DbContext "Server=tcp:kymcolin.database.windows.net,1433;Initial Catalog=kymcolin;Persist Security Info=False;User ID=linyuan;Password=Lin0928113951;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DBModels -f

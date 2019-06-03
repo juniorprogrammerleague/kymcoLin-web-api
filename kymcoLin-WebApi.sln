@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kymcoLin-WebApi", "WebApi\kymcoLin-WebApi\kymcoLin-WebApi.csproj", "{2746D3DD-5851-4C8F-918D-CED51931A82C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kymcoLin-Entities", "Entities\kymcoLin-Entities\kymcoLin-Entities.csproj", "{0348A21E-4A55-47EB-A309-090047970D0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2746D3DD-5851-4C8F-918D-CED51931A82C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2746D3DD-5851-4C8F-918D-CED51931A82C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2746D3DD-5851-4C8F-918D-CED51931A82C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2746D3DD-5851-4C8F-918D-CED51931A82C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0348A21E-4A55-47EB-A309-090047970D0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0348A21E-4A55-47EB-A309-090047970D0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0348A21E-4A55-47EB-A309-090047970D0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0348A21E-4A55-47EB-A309-090047970D0A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7866418B-88D7-4306-A5E0-654758C96980}
+	EndGlobalSection
+EndGlobal
