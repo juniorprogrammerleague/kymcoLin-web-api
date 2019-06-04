@@ -9,7 +9,7 @@ using kymcoLin_Entities.DBModels;
 using kymcoLin_WebApi.Interfaces;
 using URF.Core.Abstractions;
 using kymcoLin_WebApi.Services;
-using kymcoLin_WebApi.Models.Searches.Repair;
+
 
 namespace kymcoLin_WebApi.Controllers
 {
@@ -37,7 +37,7 @@ namespace kymcoLin_WebApi.Controllers
 
         // GET: api/Get/0000005
         [HttpGet("[action]/{id}")]
-        public async Task<ActionResult<Repair>> Get(string id)
+        public async Task<ActionResult<Repair>> GetById(string id)
         {
             var repair = await _repairService.FindAsync(id);
 
@@ -50,18 +50,18 @@ namespace kymcoLin_WebApi.Controllers
         }
 
         // POST: api/Search
-        [HttpPost("[action]")]
-        public async Task<dynamic> Search([FromBody]RepairSM model) // TODO: RequestModel
-        {
-            var repair = await _repairService.Search(model);
+        //[HttpPost("[action]")]
+        //public async Task<dynamic> Search([FromBody]RepairSM model) // TODO: RequestModel
+        //{
+        //    var repair = await _repairService.Search(model);
 
-            if (repair == null)
-            {
-                return NotFound();
-            }
+        //    if (repair == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return repair;
-        }
+        //    return repair;
+        //}
 
         // PUT: api/Repair/5
         //[HttpPut("{id}")]

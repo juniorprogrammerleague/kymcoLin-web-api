@@ -1,6 +1,5 @@
 ﻿using kymcoLin_Entities.DBModels;
 using kymcoLin_WebApi.Interfaces;
-using kymcoLin_WebApi.Models.Searches.Repair;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,38 +24,6 @@ namespace kymcoLin_WebApi.Services
         }
 
 
-        public async Task<dynamic> Search(RepairSM searchModel)
-        {
-            var query = from r in Repository.Queryable()
-                        join l in this.licensePlateRepo.Queryable() on r.LicensePlateNo equals l.LicensePlateNo
-                        select new { repair = r, license = l };
 
-            if (searchModel.StartDate != null)
-            {
-                query = query.Where(x => x.repair.InputDate > searchModel.StartDate);
-            }
-
-            if (searchModel.EndDate != null)
-            {
-                query = query.Where(x => x.repair.InputDate < searchModel.EndDate);
-            }
-
-            if (!string.IsNullOrWhiteSpace(searchModel.Name))
-            {
-                query = query.Where(x => x.license.Name.Contains(searchModel.Name));
-            }
-
-            var result = query.Select(x => new
-            {
-                x.repair.InputDate,
-                x.repair.LicensePlateNo,
-                x.license.Name,
-                x.repair.TotalPrice,
-                x.repair.DiscountPrice,
-                x.repair.RepairMemo
-            }).ToList();
-
-            return result;
-        }
     }
 }
