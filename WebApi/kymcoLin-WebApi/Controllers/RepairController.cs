@@ -9,7 +9,7 @@ using kymcoLin_Entities.DBModels;
 using kymcoLin_WebApi.Interfaces;
 using URF.Core.Abstractions;
 using kymcoLin_WebApi.Services;
-
+using kymcoLin_WebApi.Models.Requests;
 
 namespace kymcoLin_WebApi.Controllers
 {
@@ -27,27 +27,29 @@ namespace kymcoLin_WebApi.Controllers
             this._unitOfWork = unitOfWork;
         }
 
-        // GET: api/Get
-        [HttpGet]
-        [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<Repair>>> Get()
-        {
-            return await _repairService.Queryable().ToListAsync();
-        }
+       
 
-        // GET: api/Get/0000005
-        [HttpGet("[action]/{id}")]
-        public async Task<ActionResult<Repair>> GetById(string id)
+        // GET: api/GetById/0000005
+        [HttpPost("[action]")]
+        public async Task<ActionResult<dynamic>> GetByLicensePlateNo([FromBody]RepairCommon model)
         {
-            var repair = await _repairService.FindAsync(id);
+            var repair = await _repairService.GetByLicensePlateNoAsync(model.LicensePlateNo);
 
             if (repair == null)
             {
                 return BadRequest();
             }
 
-            return repair;
+            return Ok(repair);
         }
+
+        //// GET: api/Get
+        //[HttpGet]
+        //[Route("[action]")]
+        //public async Task<ActionResult<IEnumerable<Repair>>> Get()
+        //{
+        //    return await _repairService.Queryable().ToListAsync();
+        //}
 
         // POST: api/Search
         //[HttpPost("[action]")]

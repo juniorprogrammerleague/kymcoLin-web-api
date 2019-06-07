@@ -1,5 +1,6 @@
 ﻿using kymcoLin_Entities.DBModels;
 using kymcoLin_WebApi.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,14 @@ namespace kymcoLin_WebApi.Services
             this.licensePlateRepo = licensePlateRepo;
         }
 
-
-
+        public async Task<dynamic> GetByLicensePlateNoAsync(string licensePlateNo)
+        {
+            if (!string.IsNullOrWhiteSpace(licensePlateNo))
+            {
+                return await this.Repository.Queryable()
+                .Where(x => x.LicensePlateNo == licensePlateNo).ToListAsync();
+            }
+            return null;
+        }
     }
 }

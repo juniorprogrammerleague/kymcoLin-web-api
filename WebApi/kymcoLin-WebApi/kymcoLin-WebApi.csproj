@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Results\" />
-    <Folder Include="Models\Requests\" />
     <Folder Include="Models\Searches\Common\" />
     <Folder Include="Commons\" />
   </ItemGroup>

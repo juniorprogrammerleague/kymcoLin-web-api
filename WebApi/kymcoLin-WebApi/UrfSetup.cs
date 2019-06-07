@@ -33,6 +33,7 @@ namespace kymcoLin_WebApi
             services.AddScoped<ITrackableRepository<RepairDetail>, TrackableRepository<RepairDetail>>();
             services.AddScoped<ITrackableRepository<LicensePlate>, TrackableRepository<LicensePlate>>();
             services.AddScoped<ITrackableRepository<Repair>, TrackableRepository<Repair>>();
+            services.AddScoped<IRepairService, RepairService>();
             services.AddScoped<IRepairHistoryService, RepairHistoryService>();
             
         }

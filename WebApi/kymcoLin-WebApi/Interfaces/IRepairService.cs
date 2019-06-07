@@ -7,5 +7,6 @@ namespace kymcoLin_WebApi.Interfaces
     public interface IRepairService : IService<Repair>
     {
         //Task<dynamic> Search(RepairSM searchModel);
+        Task<dynamic> GetByLicensePlateNoAsync(string licensePlateNo);
     }
 }
