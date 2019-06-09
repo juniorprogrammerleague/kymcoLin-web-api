@@ -1,5 +1,8 @@
 ﻿using kymcoLin_Entities.DBModels;
+using kymcoLin_WebApi.Commons.Helpers;
 using kymcoLin_WebApi.Interfaces;
+using kymcoLin_WebApi.Models.Requests;
+using kymcoLin_WebApi.Models.Results;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,14 +27,21 @@ namespace kymcoLin_WebApi.Services
             this.licensePlateRepo = licensePlateRepo;
         }
 
-        public async Task<dynamic> GetByLicensePlateNoAsync(string licensePlateNo)
+        public async Task<ResultVM> GetByLicensePlateNoAsync(RepairCommon model)
         {
-            if (!string.IsNullOrWhiteSpace(licensePlateNo))
+            var result = new ResultVM();
+            var query = this.Repository.Queryable();
+            if (!string.IsNullOrWhiteSpace(model.LicensePlateNo))
             {
-                return await this.Repository.Queryable()
-                .Where(x => x.LicensePlateNo == licensePlateNo).ToListAsync();
+                query = query.Where(x => x.LicensePlateNo == model.LicensePlateNo);
             }
-            return null;
+
+            result.TotalCount = await query.CountAsync();
+
+            query = query.PageQuery<Repair>(model);
+            result.Result = await query.ToListAsync();
+
+            return result;
         }
     }
 }

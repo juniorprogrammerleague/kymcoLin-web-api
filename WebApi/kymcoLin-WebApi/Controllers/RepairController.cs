@@ -10,6 +10,7 @@ using kymcoLin_WebApi.Interfaces;
 using URF.Core.Abstractions;
 using kymcoLin_WebApi.Services;
 using kymcoLin_WebApi.Models.Requests;
+using kymcoLin_WebApi.Models.Results;
 
 namespace kymcoLin_WebApi.Controllers
 {
@@ -31,16 +32,16 @@ namespace kymcoLin_WebApi.Controllers
 
         // GET: api/GetById/0000005
         [HttpPost("[action]")]
-        public async Task<ActionResult<dynamic>> GetByLicensePlateNo([FromBody]RepairCommon model)
+        public async Task<ActionResult<ResultVM>> GetByLicensePlateNo([FromBody]RepairCommon model)
         {
-            var repair = await _repairService.GetByLicensePlateNoAsync(model.LicensePlateNo);
+            var result = await _repairService.GetByLicensePlateNoAsync(model);
 
-            if (repair == null)
+            if (result == null)
             {
                 return BadRequest();
             }
 
-            return Ok(repair);
+            return Ok(result);
         }
 
         //// GET: api/Get
