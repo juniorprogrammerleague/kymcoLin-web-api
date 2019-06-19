@@ -7,6 +7,11 @@ namespace kymcoLin_WebApi.Models.Searches
 {
     public class RepairSM
     {
+        /// <summary>
+        /// 搜尋關鍵字
+        /// </summary>
+        public string SearchTerm { get; set; }
+
         ///// <summary>
         ///// 維修日期區間:開始時間
         ///// </summary>

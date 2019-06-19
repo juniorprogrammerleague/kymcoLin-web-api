@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using URF.Core.Abstractions;
 using URF.Core.Abstractions.Trackable;
 using URF.Core.Services;
+using System.Linq.Dynamic.Core;
+using System.Text.RegularExpressions;
 
 namespace kymcoLin_WebApi.Services
 {
@@ -27,7 +29,7 @@ namespace kymcoLin_WebApi.Services
             this.licensePlateRepo = licensePlateRepo;
         }
 
-        public async Task<ResultVM> GetByLicensePlateNoAsync(RepairCommon model)
+        public async Task<ResultVM> GetByLicensePlateNoAsync(RepairTable model)
         {
             var result = new ResultVM();
             var query = this.Repository.Queryable();
@@ -38,10 +40,61 @@ namespace kymcoLin_WebApi.Services
 
             result.TotalCount = await query.CountAsync();
 
-            query = query.PageQuery<Repair>(model);
+            var term = PaginatorHelper.GetSortTerm("");
+            query = query.OrderBy(!string.IsNullOrWhiteSpace(term)? term: "RepairDate desc")
+                    .Skip(model.PageSize.GetValueOrDefault() * model.PageIndex.GetValueOrDefault())
+                    .Take(model.PageSize.GetValueOrDefault());
             result.Result = await query.ToListAsync();
 
             return result;
         }
+
+        public async Task<dynamic> SearchByTerm(string searchTerm)
+        {
+            var isChinese = new Regex("^[\u4E00-\u9FFF]+$").IsMatch(searchTerm);
+            var isAllNum = new Regex("^\\d+$").IsMatch(searchTerm);
+
+            if (isChinese)
+            {
+                return await this.licensePlateRepo.Queryable()
+                    .Where(x => x.Name.StartsWith(searchTerm))
+                    .Select(x => new { licenseNo = x.LicensePlateNo, text = x.Name })
+                    .Union(
+                        this.licensePlateRepo.Queryable()
+                        .Where(x => x.LicenseMemo.Contains(searchTerm))
+                        .Select(x => new { licenseNo = x.LicensePlateNo, text = x.LicenseMemo }))
+                        .ToListAsync();                
+            }
+            else
+            {
+                return await this.licensePlateRepo.Queryable()
+                    .Where(x => x.LicensePlateNo.StartsWith(searchTerm))
+                    .Select(x => new { licenseNo = x.LicensePlateNo, text = x.LicensePlateNo })
+
+                .Union(this.licensePlateRepo.Queryable()
+                    .Where(x => x.Phone.StartsWith(searchTerm))
+                    .Select(x => new { licenseNo = x.LicensePlateNo, text = x.Phone }))
+                    .Union(
+                        this.licensePlateRepo.Queryable()
+                        .Where(x => x.Tel.StartsWith(searchTerm))
+                        .Select(x => new { licenseNo = x.LicensePlateNo, text = x.Tel }))
+                        .ToListAsync();
+            }
+        }
+
+        //public async Task<dynamic> GetRepairDetail(string LicensePlateNo)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public async Task<dynamic> GetScooterDetail(string LicensePlateNo)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public async Task<dynamic> GetRepairRecord(string LicensePlateNo)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

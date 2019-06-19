@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace kymcoLin_WebApi.Models.Requests
 {
-    public class RepairCommon : TableBase
+    public class RepairTable : TableBase
     {
         /// <summary>
         /// 車牌號碼

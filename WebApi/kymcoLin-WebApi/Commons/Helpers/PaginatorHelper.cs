@@ -8,16 +8,17 @@ namespace kymcoLin_WebApi.Commons.Helpers
 {
     public static class PaginatorHelper
     {
-        public static IQueryable<T> PageQuery<T>(this IQueryable<T> query, TableBase model) where T : class
+        /// <summary>
+        /// 取得 mat-table 排序字串sql格式
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static string GetSortTerm(string sort) 
         {
-            if (model.PageIndex != null && model.PageSize != null)
-            {
-                query = query
-                    .Skip(model.PageSize.GetValueOrDefault() * model.PageIndex.GetValueOrDefault())
-                    .Take(model.PageSize.GetValueOrDefault());
-            }
-
-            return query;
+            
+            return "";
         }
     }
 }
