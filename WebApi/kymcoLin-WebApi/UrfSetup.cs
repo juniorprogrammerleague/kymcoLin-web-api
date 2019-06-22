@@ -30,9 +30,12 @@ namespace kymcoLin_WebApi
             services.AddScoped<DbContext, kymcolinContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            services.AddScoped<ITrackableRepository<Product>, TrackableRepository<Product>>();
+            services.AddScoped<ITrackableRepository<ProductType>, TrackableRepository<ProductType>>();
             services.AddScoped<ITrackableRepository<RepairDetail>, TrackableRepository<RepairDetail>>();
             services.AddScoped<ITrackableRepository<LicensePlate>, TrackableRepository<LicensePlate>>();
             services.AddScoped<ITrackableRepository<Repair>, TrackableRepository<Repair>>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IRepairService, RepairService>();
             services.AddScoped<IRepairHistoryService, RepairHistoryService>();
             
