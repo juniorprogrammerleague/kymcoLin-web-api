@@ -29,7 +29,7 @@ namespace kymcoLin_WebApi.Services
             this.licensePlateRepo = licensePlateRepo;
         }
 
-        public async Task<ResultVM> GetByLicensePlateNoAsync(RepairTable model)
+        public async Task<ResultVM> GetRepairRecordAsync(RepairTable model)
         {
             var result = new ResultVM();
             var query = this.Repository.Queryable();
@@ -49,7 +49,7 @@ namespace kymcoLin_WebApi.Services
             return result;
         }
 
-        public async Task<dynamic> SearchByTerm(string searchTerm)
+        public async Task<dynamic> SearchByTermAsync(string searchTerm)
         {
             var isChinese = new Regex("^[\u4E00-\u9FFF]+$").IsMatch(searchTerm);
             var isAllNum = new Regex("^\\d+$").IsMatch(searchTerm);
@@ -82,10 +82,16 @@ namespace kymcoLin_WebApi.Services
             }
         }
 
-        //public async Task<dynamic> GetRepairDetail(string LicensePlateNo)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task<dynamic> GetRepairDetailAsync(string licensePlateNo)
+        {
+            var query = await this.Repository.Queryable()
+                 .Where(x => x.LicensePlateNo == licensePlateNo)
+                 .ToListAsync();
+
+            return query.OrderByDescending(x => x.RepairDate)
+                 .Select(x => new { x.LicensePlateNo, LastMile = x.Mile })
+                 .FirstOrDefault();
+        }
 
         //public async Task<dynamic> GetScooterDetail(string LicensePlateNo)
         //{

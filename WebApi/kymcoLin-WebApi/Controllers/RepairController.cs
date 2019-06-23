@@ -19,7 +19,6 @@ namespace kymcoLin_WebApi.Controllers
     [ApiController]
     public class RepairController : ControllerBase
     {
-        // private readonly kymcolinContext _context;
         private readonly IRepairService _repairService;
         private readonly IUnitOfWork _unitOfWork;
 
@@ -27,15 +26,17 @@ namespace kymcoLin_WebApi.Controllers
         {
             this._repairService = repairService;
             this._unitOfWork = unitOfWork;
-        }
+        }       
 
-       
-
-        // GET: api/GetById/0000005
+        /// <summary>
+        /// 取得維修紀錄表格資料
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
-        public async Task<ActionResult<ResultVM>> GetByLicensePlateNo([FromBody]RepairTable model)
+        public async Task<ActionResult<ResultVM>> GetRepairRecord([FromBody]RepairTable model)
         {
-            var result = await _repairService.GetByLicensePlateNoAsync(model);
+            var result = await _repairService.GetRepairRecordAsync(model);
 
             if (result == null)
             {
@@ -45,10 +46,33 @@ namespace kymcoLin_WebApi.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 取得搜尋模糊比對清單
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
-        public async Task<ActionResult<ResultVM>> GetBySearchTerm([FromBody]RepairSM model)
+        public async Task<ActionResult<dynamic>> GetBySearchTerm([FromBody]RepairSM model)
         {
-            var result = await _repairService.SearchByTerm(model.SearchTerm);
+            var result = await _repairService.SearchByTermAsync(model.SearchTerm);
+
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 取得上次維修欄位
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost("[action]")]
+        public async Task<ActionResult<dynamic>> GetRepairDetail([FromBody]RepairSM model)
+        {
+            var result = await _repairService.GetRepairDetailAsync(model.LicensePlateNo);
 
             if (result == null)
             {

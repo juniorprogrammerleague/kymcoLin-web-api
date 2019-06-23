@@ -12,6 +12,11 @@ namespace kymcoLin_WebApi.Models.Searches
         /// </summary>
         public string SearchTerm { get; set; }
 
+        /// <summary>
+        /// 車牌號碼
+        /// </summary>
+        public string LicensePlateNo { get; set; }
+
         ///// <summary>
         ///// 維修日期區間:開始時間
         ///// </summary>

@@ -8,9 +8,11 @@ namespace kymcoLin_WebApi.Interfaces
 {
     public interface IRepairService : IService<Repair>
     {
-        //Task<dynamic> Search(RepairSM searchModel);
-        Task<ResultVM> GetByLicensePlateNoAsync(RepairTable licensePlateNo);
 
-        Task<dynamic> SearchByTerm(string searchTerm);
+        Task<ResultVM> GetRepairRecordAsync(RepairTable licensePlateNo);
+
+        Task<dynamic> SearchByTermAsync(string searchTerm);
+
+        Task<dynamic> GetRepairDetailAsync(string licensePlateNo);
     }
 }
